@@ -6,18 +6,19 @@
 
 class AEROFLOT {
 public:
+    AEROFLOT();
+    AEROFLOT(std::string _destination, int _flightNumber, std::string _planeType);
+    AEROFLOT(const AEROFLOT& aeroflot);
+    ~AEROFLOT();
     std::string getDestination();
     void setDestination(std::string value);
     int getFlightNumber();
     void setFlightNumber(int value);
-    std::string getPlaneType();
-    void setPlaneType(std::string value);
+    std::string getAircraftType();
+    void setAircraftType(std::string value);
     friend std::ostream& operator<<(std::ostream& ostream, const AEROFLOT& aeroflot);
     friend std::istream& operator>>(std::istream& istream, AEROFLOT& aeroflot);
-    void dataProcessing(int value);
-    void addFlight();
-    void printAircraft();
-    void printAllData();
+    int addFlight();
 private:
     std::string destination;
     int flightNumber;
