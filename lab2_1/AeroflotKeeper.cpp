@@ -21,26 +21,24 @@ void AeroflotKeeper::dataProcessing(int value) {
     switch (value) {
         case 1: {
             AEROFLOT aeroflot;
-            if(!aeroflot.addFlight()){
-                addAeroflot(aeroflot);
-                std::sort(aeroflotKeeper, aeroflotKeeper+tempKeep, comparator);
-            }
-            else {
-                throw std::invalid_argument(
-                        "Wrong plane data. Data should have the following form: \"destination, aircraft number, aircraft type\"\n");
-            }
+            std::cin.ignore(32767, '\n');
+            std::cout << "Print next data separated by commas: destination, plane number and plane type\n";
+
+            std::cin >> aeroflot;
+            addAeroflot(aeroflot);
+            std::sort(aeroflotKeeper, aeroflotKeeper + tempKeep, comparator);
             break;
         }
         case 2: {
-            if(!tempKeep){
+            if (!tempKeep) {
                 std::cout << "You have not aircraft\n";
                 return;
             }
             std::cin.ignore(32676, '\n');
             std::cout << "Your aircraft types:\n";
             std::string aircrafts;
-            for(int i=0;i<tempKeep;i++) {
-                if(aircrafts.find(aeroflotKeeper[i].getAircraftType()) == std::string::npos) {
+            for (int i = 0; i < tempKeep; i++) {
+                if (aircrafts.find(aeroflotKeeper[i].getAircraftType()) == std::string::npos) {
                     std::cout << "\t" << aeroflotKeeper[i].getAircraftType() << "\n";
                     aircrafts.append(aeroflotKeeper[i].getAircraftType());
                 }
@@ -49,15 +47,15 @@ void AeroflotKeeper::dataProcessing(int value) {
             std::cout << "Enter an aircraft type:\n";
             std::string aircraft;
             std::getline(std::cin, aircraft);
-            for(int i=0;i<tempKeep;i++){
-                if(aeroflotKeeper[i].getAircraftType() == aircraft) {
+            for (int i = 0; i < tempKeep; i++) {
+                if (aeroflotKeeper[i].getAircraftType() == aircraft) {
                     std::cout << "This aircraft \"" << aeroflotKeeper[i].getAircraftType() << "\" serves:\n";
                     std::cout << "\t" << number << ": Flight number " << aeroflotKeeper[i].getFlightNumber()
                               << ", destination " << aeroflotKeeper[i].getDestination() << "\n";
                     number++;
                 }
             }
-            if(number == 1){
+            if (number == 1) {
                 std::cout << "The aircraft \"" << aircraft << "\" does not serve any flights\n";
             }
             break;

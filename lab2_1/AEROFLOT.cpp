@@ -52,19 +52,9 @@ std::ostream& operator<<(std::ostream& ostream, const AEROFLOT& aeroflot) {
 }
 
 std::istream& operator>>(std::istream& istream, AEROFLOT& aeroflot){
-    istream >> aeroflot.destination;
-    istream >> aeroflot.flightNumber;
-    istream >> aeroflot.planeType;
-
-    return istream;
-}
-
-int AEROFLOT::addFlight() {
-    std::cin.ignore(32767, '\n');
-    std::cout << "Print next data separated by commas: destination, plane number and plane type\n";
-
     std::string input;
-    std::getline(std::cin, input);
+    std::getline(istream, input);
+
     int wordCount = 0;
     std::string tempValue;
 
@@ -74,12 +64,12 @@ int AEROFLOT::addFlight() {
         }
         if(i == ','){
             if(wordCount == 0){
-                this->destination = tempValue;
+                aeroflot.destination = tempValue;
                 wordCount++;
                 tempValue.clear();
             }
             else if(wordCount == 1){
-                this->flightNumber = std::stoi(tempValue);
+                aeroflot.flightNumber = std::stoi(tempValue);
                 wordCount++;
                 tempValue.clear();
             }
@@ -88,9 +78,10 @@ int AEROFLOT::addFlight() {
             tempValue.push_back(i);
         }
     }
-    if(wordCount == 2) {
-        this->planeType = tempValue;
-        return 0;
-    }
-    else return 1;
+    if(wordCount == 2)
+        aeroflot.planeType = tempValue;
+    else
+        throw std::invalid_argument("Wrong plane data. Data should have the following form: \"destination, aircraft number, aircraft type\"\n");
+
+    return istream;
 }

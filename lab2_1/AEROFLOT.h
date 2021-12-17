@@ -18,7 +18,6 @@ public:
     void setAircraftType(std::string value);
     friend std::ostream& operator<<(std::ostream& ostream, const AEROFLOT& aeroflot);
     friend std::istream& operator>>(std::istream& istream, AEROFLOT& aeroflot);
-    int addFlight();
 private:
     std::string destination;
     int flightNumber;

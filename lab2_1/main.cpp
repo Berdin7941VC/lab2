@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "AEROFLOT.h"
 #include "AeroflotKeeper.h"
 
 void printFirstInformation(){
